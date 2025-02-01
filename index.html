@@ -17,28 +17,34 @@
                 </audio>
             </div>
 
-            <div id="opciones">
+            <div id="fase1" class="fase">
                 <label for="tipo-ruido">Tipo de ruido:</label>
                 <select id="tipo-ruido" class="select-box">
                     <option value="">-- Selecciona --</option>
                     <option value="normal">Normal</option>
                     <option value="agregado">Agregado</option>
                 </select>
+            </div>
 
+            <div id="fase2" class="fase" style="display: none;">
                 <label for="tipo-agregado">Tipo de ruido agregado:</label>
                 <select id="tipo-agregado" class="select-box">
                     <option value="">-- Selecciona --</option>
                     <option value="continuo">Continuo</option>
                     <option value="discontinuo">Discontinuo</option>
                 </select>
+            </div>
 
-                <label for="fase">Fase:</label>
-                <select id="fase" class="select-box">
+            <div id="fase3" class="fase" style="display: none;">
+                <label for="desaparece-tos">¿Desaparece con la tos?</label>
+                <select id="desaparece-tos" class="select-box">
                     <option value="">-- Selecciona --</option>
-                    <option value="inspiratoria">Inspiratoria</option>
-                    <option value="espiratoria">Espiratoria</option>
+                    <option value="si">Sí</option>
+                    <option value="no">No</option>
                 </select>
+            </div>
 
+            <div id="fase4" class="fase" style="display: none;">
                 <label for="ubicacion">Ubicación:</label>
                 <select id="ubicacion" class="select-box">
                     <option value="">-- Selecciona --</option>
@@ -47,10 +53,18 @@
                 </select>
             </div>
 
+            <div id="fase5" class="fase" style="display: none;">
+                <label for="ruido-correcto">Seleccione el ruido correcto:</label>
+                <select id="ruido-correcto" class="select-box">
+                    <option value="">-- Selecciona --</option>
+                    <!-- Opciones se llenarán dinámicamente -->
+                </select>
+            </div>
+
             <div id="resultado" class="resultado"></div>
 
             <div class="botones">
-                <button id="revisar" class="btn-revisar">Revisar</button>
+                <button id="revisar" class="btn-revisar" style="display: none;">Revisar</button>
                 <button id="anterior" class="btn-navegacion">Anterior</button>
                 <button id="siguiente" class="btn-navegacion">Siguiente</button>
                 <button id="aleatorio" class="btn-navegacion">Aleatorio</button>
