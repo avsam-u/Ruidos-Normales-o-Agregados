@@ -12,14 +12,20 @@
     <div class="container">
         <h1>Aprendizaje de Ruidos Pulmonares</h1>
         <div class="app">
-            <label for="tipo-ruido">Selecciona el tipo de ruido:</label>
-            <select id="tipo-ruido" class="select-box">
-                <option value="">-- Selecciona --</option>
-                <option value="normal">Normal</option>
-                <option value="agregado">Agregado</option>
-            </select>
+            <div id="audio-container">
+                <audio id="audio-player" controls class="audio-player">
+                    Tu navegador no soporta la reproducción de audio.
+                </audio>
+            </div>
 
-            <div id="opciones-agregado" class="opciones" style="display: none;">
+            <div id="opciones">
+                <label for="tipo-ruido">Tipo de ruido:</label>
+                <select id="tipo-ruido" class="select-box">
+                    <option value="">-- Selecciona --</option>
+                    <option value="normal">Normal</option>
+                    <option value="agregado">Agregado</option>
+                </select>
+
                 <label for="tipo-agregado">Tipo de ruido agregado:</label>
                 <select id="tipo-agregado" class="select-box">
                     <option value="">-- Selecciona --</option>
@@ -27,33 +33,29 @@
                     <option value="discontinuo">Discontinuo</option>
                 </select>
 
-                <div id="opciones-continuo" class="opciones" style="display: none;">
-                    <label for="continuo">Selecciona el ruido continuo:</label>
-                    <select id="continuo" class="select-box">
-                        <option value="">-- Selecciona --</option>
-                        <option value="roncus">Roncus</option>
-                        <option value="estridor">Estridor</option>
-                        <option value="sibilancia">Sibilancia</option>
-                    </select>
-                </div>
+                <label for="fase">Fase:</label>
+                <select id="fase" class="select-box">
+                    <option value="">-- Selecciona --</option>
+                    <option value="inspiratoria">Inspiratoria</option>
+                    <option value="espiratoria">Espiratoria</option>
+                </select>
 
-                <div id="opciones-discontinuo" class="opciones" style="display: none;">
-                    <label for="discontinuo">Selecciona el ruido discontinuo:</label>
-                    <select id="discontinuo" class="select-box">
-                        <option value="">-- Selecciona --</option>
-                        <option value="crepito_fino">Crepito fino</option>
-                        <option value="crepito_grueso">Crepito grueso</option>
-                        <option value="frote_pleural">Frote pleural</option>
-                    </select>
-                </div>
+                <label for="ubicacion">Ubicación:</label>
+                <select id="ubicacion" class="select-box">
+                    <option value="">-- Selecciona --</option>
+                    <option value="central">Vía central</option>
+                    <option value="periferica">Vía periférica</option>
+                </select>
             </div>
 
             <div id="resultado" class="resultado"></div>
-            <audio id="audio-player" controls class="audio-player">
-                Tu navegador no soporta la reproducción de audio.
-            </audio>
 
-            <button id="siguiente" class="btn-siguiente" style="display: none;">Siguiente</button>
+            <div class="botones">
+                <button id="revisar" class="btn-revisar">Revisar</button>
+                <button id="anterior" class="btn-navegacion">Anterior</button>
+                <button id="siguiente" class="btn-navegacion">Siguiente</button>
+                <button id="aleatorio" class="btn-navegacion">Aleatorio</button>
+            </div>
         </div>
     </div>
     <script src="./script.js"></script>
