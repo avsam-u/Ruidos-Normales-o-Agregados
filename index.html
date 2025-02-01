@@ -6,52 +6,55 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self';">
     <title>Aprendizaje de Ruidos Pulmonares</title>
     <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Aprendizaje de Ruidos Pulmonares</h1>
-    <div id="app">
-        <label for="tipo-ruido">Selecciona el tipo de ruido:</label>
-        <select id="tipo-ruido">
-            <option value="">-- Selecciona --</option>
-            <option value="normal">Normal</option>
-            <option value="agregado">Agregado</option>
-        </select>
-
-        <div id="opciones-agregado" style="display: none;">
-            <label for="tipo-agregado">Tipo de ruido agregado:</label>
-            <select id="tipo-agregado">
+    <div class="container">
+        <h1>Aprendizaje de Ruidos Pulmonares</h1>
+        <div class="app">
+            <label for="tipo-ruido">Selecciona el tipo de ruido:</label>
+            <select id="tipo-ruido" class="select-box">
                 <option value="">-- Selecciona --</option>
-                <option value="continuo">Continuo</option>
-                <option value="discontinuo">Discontinuo</option>
+                <option value="normal">Normal</option>
+                <option value="agregado">Agregado</option>
             </select>
 
-            <div id="opciones-continuo" style="display: none;">
-                <label for="continuo">Selecciona el ruido continuo:</label>
-                <select id="continuo">
+            <div id="opciones-agregado" class="opciones" style="display: none;">
+                <label for="tipo-agregado">Tipo de ruido agregado:</label>
+                <select id="tipo-agregado" class="select-box">
                     <option value="">-- Selecciona --</option>
-                    <option value="roncus">Roncus</option>
-                    <option value="estridor">Estridor</option>
-                    <option value="sibilancia">Sibilancia</option>
+                    <option value="continuo">Continuo</option>
+                    <option value="discontinuo">Discontinuo</option>
                 </select>
+
+                <div id="opciones-continuo" class="opciones" style="display: none;">
+                    <label for="continuo">Selecciona el ruido continuo:</label>
+                    <select id="continuo" class="select-box">
+                        <option value="">-- Selecciona --</option>
+                        <option value="roncus">Roncus</option>
+                        <option value="estridor">Estridor</option>
+                        <option value="sibilancia">Sibilancia</option>
+                    </select>
+                </div>
+
+                <div id="opciones-discontinuo" class="opciones" style="display: none;">
+                    <label for="discontinuo">Selecciona el ruido discontinuo:</label>
+                    <select id="discontinuo" class="select-box">
+                        <option value="">-- Selecciona --</option>
+                        <option value="crepito_fino">Crepito fino</option>
+                        <option value="crepito_grueso">Crepito grueso</option>
+                        <option value="frote_pleural">Frote pleural</option>
+                    </select>
+                </div>
             </div>
 
-            <div id="opciones-discontinuo" style="display: none;">
-                <label for="discontinuo">Selecciona el ruido discontinuo:</label>
-                <select id="discontinuo">
-                    <option value="">-- Selecciona --</option>
-                    <option value="crepito_fino">Crepito fino</option>
-                    <option value="crepito_grueso">Crepito grueso</option>
-                    <option value="frote_pleural">Frote pleural</option>
-                </select>
-            </div>
+            <div id="resultado" class="resultado"></div>
+            <audio id="audio-player" controls class="audio-player">
+                Tu navegador no soporta la reproducción de audio.
+            </audio>
+
+            <button id="siguiente" class="btn-siguiente" style="display: none;">Siguiente</button>
         </div>
-
-        <div id="resultado"></div>
-        <audio id="audio-player" controls>
-            Tu navegador no soporta la reproducción de audio.
-        </audio>
-
-        <button id="siguiente" style="display: none;">Siguiente</button>
     </div>
     <script src="./script.js"></script>
 </body>
