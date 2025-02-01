@@ -4,7 +4,7 @@ const ruidos = [
         nombre: "Roncus",
         tipo: "agregado",
         agregado: "continuo",
-        fase: "inspiratoria",
+        desapareceTos: "si",
         ubicacion: "central",
         archivo: "roncus.mp3"
     },
@@ -12,7 +12,7 @@ const ruidos = [
         nombre: "Estridor",
         tipo: "agregado",
         agregado: "continuo",
-        fase: "espiratoria",
+        desapareceTos: "no",
         ubicacion: "central",
         archivo: "estridor.mp3"
     },
@@ -20,7 +20,7 @@ const ruidos = [
         nombre: "Sibilancia",
         tipo: "agregado",
         agregado: "continuo",
-        fase: "espiratoria",
+        desapareceTos: "no",
         ubicacion: "central",
         archivo: "sibilancia.mp3"
     },
@@ -28,7 +28,7 @@ const ruidos = [
         nombre: "Crepito fino",
         tipo: "agregado",
         agregado: "discontinuo",
-        fase: "inspiratoria",
+        desapareceTos: "no",
         ubicacion: "periferica",
         archivo: "crepito_fino.mp3"
     },
@@ -36,7 +36,7 @@ const ruidos = [
         nombre: "Crepito grueso",
         tipo: "agregado",
         agregado: "discontinuo",
-        fase: "espiratoria",
+        desapareceTos: "si",
         ubicacion: "central",
         archivo: "crepito_grueso.mp3"
     },
@@ -44,7 +44,7 @@ const ruidos = [
         nombre: "Frote pleural",
         tipo: "agregado",
         agregado: "discontinuo",
-        fase: "ambas",
+        desapareceTos: "no",
         ubicacion: "periferica",
         archivo: "frote_pleural.mp3"
     }
@@ -52,18 +52,21 @@ const ruidos = [
 
 let indiceActual = 0;
 let ruidoActual = ruidos[indiceActual];
+let faseActual = 1;
 
 // Elementos del DOM
 const audioPlayer = document.getElementById('audio-player');
 const tipoRuido = document.getElementById('tipo-ruido');
 const tipoAgregado = document.getElementById('tipo-agregado');
-const fase = document.getElementById('fase');
+const desapareceTos = document.getElementById('desaparece-tos');
 const ubicacion = document.getElementById('ubicacion');
+const ruidoCorrecto = document.getElementById('ruido-correcto');
 const resultado = document.getElementById('resultado');
 const btnRevisar = document.getElementById('revisar');
 const btnAnterior = document.getElementById('anterior');
 const btnSiguiente = document.getElementById('siguiente');
 const btnAleatorio = document.getElementById('aleatorio');
+const fases = document.querySelectorAll('.fase');
 
 // Cargar el ruido actual
 function cargarRuido() {
@@ -71,9 +74,36 @@ function cargarRuido() {
     audioPlayer.play();
     tipoRuido.value = "";
     tipoAgregado.value = "";
-    fase.value = "";
+    desapareceTos.value = "";
     ubicacion.value = "";
+    ruidoCorrecto.innerHTML = '<option value="">-- Selecciona --</option>';
     resultado.textContent = "";
+    faseActual = 1;
+    mostrarFase(faseActual);
+}
+
+// Mostrar la fase actual
+function mostrarFase(fase) {
+    fases.forEach((f, index) => {
+        f.style.display = index + 1 === fase ? 'block' : 'none';
+    });
+    btnRevisar.style.display = fase === 5 ? 'block' : 'none';
+}
+
+// Avanzar a la siguiente fase
+function avanzarFase() {
+    if (faseActual < 5) {
+        faseActual++;
+        mostrarFase(faseActual);
+    }
+}
+
+// Retroceder a la fase anterior
+function retrocederFase() {
+    if (faseActual > 1) {
+        faseActual--;
+        mostrarFase(faseActual);
+    }
 }
 
 // Verificar la respuesta
@@ -81,15 +111,17 @@ function verificarRespuesta() {
     const respuestas = {
         tipo: tipoRuido.value,
         agregado: tipoAgregado.value,
-        fase: fase.value,
-        ubicacion: ubicacion.value
+        desapareceTos: desapareceTos.value,
+        ubicacion: ubicacion.value,
+        ruidoCorrecto: ruidoCorrecto.value
     };
 
     const correcto = (
         respuestas.tipo === ruidoActual.tipo &&
         respuestas.agregado === ruidoActual.agregado &&
-        respuestas.fase === ruidoActual.fase &&
-        respuestas.ubicacion === ruidoActual.ubicacion
+        respuestas.desapareceTos === ruidoActual.desapareceTos &&
+        respuestas.ubicacion === ruidoActual.ubicacion &&
+        respuestas.ruidoCorrecto === ruidoActual.nombre
     );
 
     if (correcto) {
@@ -120,11 +152,23 @@ function aleatorio() {
     cargarRuido();
 }
 
+// Llenar opciones de ruidos en la fase 5
+function llenarOpcionesRuidos() {
+    ruidoCorrecto.innerHTML = '<option value="">-- Selecciona --</option>';
+    ruidos.forEach(ruido => {
+        const option = document.createElement('option');
+        option.value = ruido.nombre;
+        option.textContent = ruido.nombre;
+        ruidoCorrecto.appendChild(option);
+    });
+}
+
 // Eventos
 btnRevisar.addEventListener('click', verificarRespuesta);
-btnSiguiente.addEventListener('click', avanzar);
-btnAnterior.addEventListener('click', retroceder);
+btnSiguiente.addEventListener('click', avanzarFase);
+btnAnterior.addEventListener('click', retrocederFase);
 btnAleatorio.addEventListener('click', aleatorio);
 
 // Cargar el primer ruido al iniciar
 cargarRuido();
+llenarOpcionesRuidos();
