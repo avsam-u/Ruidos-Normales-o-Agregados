@@ -50,7 +50,7 @@ const ruidos = [
     }
 ];
 
-let indiceActual = 0;
+let indiceActual = Math.floor(Math.random() * ruidos.length); // Ruido aleatorio al inicio
 let ruidoActual = ruidos[indiceActual];
 let faseActual = 1;
 
@@ -61,12 +61,13 @@ const tipoAgregado = document.getElementById('tipo-agregado');
 const desapareceTos = document.getElementById('desaparece-tos');
 const ubicacion = document.getElementById('ubicacion');
 const ruidoCorrecto = document.getElementById('ruido-correcto');
-const resultado = document.getElementById('resultado');
+const resultadoFinal = document.getElementById('resultado-final');
 const btnRevisar = document.getElementById('revisar');
 const btnAnterior = document.getElementById('anterior');
 const btnSiguiente = document.getElementById('siguiente');
 const btnAleatorio = document.getElementById('aleatorio');
 const fases = document.querySelectorAll('.fase');
+const resultadosFase = document.querySelectorAll('.resultado-fase');
 
 // Cargar el ruido actual
 function cargarRuido() {
@@ -77,7 +78,8 @@ function cargarRuido() {
     desapareceTos.value = "";
     ubicacion.value = "";
     ruidoCorrecto.innerHTML = '<option value="">-- Selecciona --</option>';
-    resultado.textContent = "";
+    resultadosFase.forEach(resultado => resultado.textContent = "");
+    resultadoFinal.textContent = "";
     faseActual = 1;
     mostrarFase(faseActual);
 }
@@ -90,11 +92,55 @@ function mostrarFase(fase) {
     btnRevisar.style.display = fase === 5 ? 'block' : 'none';
 }
 
+// Verificar la respuesta en la fase actual
+function verificarFase() {
+    let correcto = false;
+    let mensaje = "";
+
+    switch (faseActual) {
+        case 1:
+            correcto = tipoRuido.value === ruidoActual.tipo;
+            mensaje = correcto ? "" : `Incorrecto. El ruido es ${ruidoActual.tipo}.`;
+            break;
+        case 2:
+            correcto = tipoAgregado.value === ruidoActual.agregado;
+            mensaje = correcto ? "" : `Incorrecto. El ruido es ${ruidoActual.agregado}.`;
+            break;
+        case 3:
+            // Aquí está la modificación para la fase de la tos
+            correcto = desapareceTos.value === ruidoActual.desapareceTos;
+            if (correcto) {
+                mensaje = ruidoActual.desapareceTos === "si" ? "Desapareció." : "No desapareció.";
+            } else {
+                mensaje = ruidoActual.desapareceTos === "si" ? "Desapareció." : "No desapareció.";
+            }
+            break;
+        case 4:
+            correcto = ubicacion.value === ruidoActual.ubicacion;
+            mensaje = correcto ? "" : `Incorrecto. El ruido es en la vía ${ruidoActual.ubicacion}.`;
+            break;
+        case 5:
+            correcto = ruidoCorrecto.value === ruidoActual.nombre;
+            mensaje = correcto ? "¡Correcto!" : `Incorrecto. El ruido es ${ruidoActual.nombre}.`;
+            break;
+    }
+
+    resultadosFase[faseActual - 1].textContent = mensaje;
+    resultadosFase[faseActual - 1].style.color = correcto ? "#27ae60" : "#e74c3c";
+
+    return correcto;
+}
+
 // Avanzar a la siguiente fase
 function avanzarFase() {
-    if (faseActual < 5) {
-        faseActual++;
-        mostrarFase(faseActual);
+    if (verificarFase()) {
+        if (faseActual < 5) {
+            faseActual++;
+            mostrarFase(faseActual);
+        } else {
+            resultadoFinal.textContent = "¡Felicidades! Has completado todas las fases correctamente.";
+            resultadoFinal.style.color = "#27ae60";
+        }
     }
 }
 
@@ -103,36 +149,6 @@ function retrocederFase() {
     if (faseActual > 1) {
         faseActual--;
         mostrarFase(faseActual);
-    }
-}
-
-// Verificar la respuesta
-function verificarRespuesta() {
-    const respuestas = {
-        tipo: tipoRuido.value,
-        agregado: tipoAgregado.value,
-        desapareceTos: desapareceTos.value,
-        ubicacion: ubicacion.value,
-        ruidoCorrecto: ruidoCorrecto.value
-    };
-
-    console.log("Respuestas del usuario:", respuestas);
-    console.log("Ruido actual:", ruidoActual);
-
-    const correcto = (
-        respuestas.tipo === ruidoActual.tipo &&
-        respuestas.agregado === ruidoActual.agregado &&
-        respuestas.desapareceTos === ruidoActual.desapareceTos &&
-        respuestas.ubicacion === ruidoActual.ubicacion &&
-        respuestas.ruidoCorrecto === ruidoActual.nombre
-    );
-
-    if (correcto) {
-        resultado.textContent = "¡Correcto!";
-        resultado.style.color = "#27ae60";
-    } else {
-        resultado.textContent = `Incorrecto. El ruido es: ${ruidoActual.nombre}.`;
-        resultado.style.color = "#e74c3c";
     }
 }
 
@@ -160,14 +176,14 @@ function llenarOpcionesRuidos() {
     ruidoCorrecto.innerHTML = '<option value="">-- Selecciona --</option>';
     ruidos.forEach(ruido => {
         const option = document.createElement('option');
-        option.value = ruido.nombre; // Asegúrate de que el valor sea el nombre del ruido
+        option.value = ruido.nombre;
         option.textContent = ruido.nombre;
         ruidoCorrecto.appendChild(option);
     });
 }
 
 // Eventos
-btnRevisar.addEventListener('click', verificarRespuesta);
+btnRevisar.addEventListener('click', avanzarFase);
 btnSiguiente.addEventListener('click', avanzarFase);
 btnAnterior.addEventListener('click', retrocederFase);
 btnAleatorio.addEventListener('click', aleatorio);
