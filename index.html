@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendizaje de Ruidos Pulmonares</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Aprendizaje de Ruidos Pulmonares</h1>
+    <div id="app">
+        <label for="tipo-ruido">Selecciona el tipo de ruido:</label>
+        <select id="tipo-ruido">
+            <option value="normal">Normal</option>
+            <option value="agregado">Agregado</option>
+        </select>
+
+        <div id="opciones-agregado" style="display: none;">
+            <label for="tipo-agregado">Tipo de ruido agregado:</label>
+            <select id="tipo-agregado">
+                <option value="continuo">Continuo</option>
+                <option value="discontinuo">Discontinuo</option>
+            </select>
+        </div>
+
+        <div id="resultado"></div>
+        <audio id="audio-player" controls></audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
