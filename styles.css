@@ -1,6 +1,19 @@
-/* Estilos generales */
+@font-face {
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', Arial, sans-serif;
     background-color: #f4f4f9;
     color: #333;
     margin: 0;
