@@ -21,10 +21,30 @@
                 <option value="continuo">Continuo</option>
                 <option value="discontinuo">Discontinuo</option>
             </select>
+
+            <div id="opciones-continuo" style="display: none;">
+                <label for="continuo">Selecciona el ruido continuo:</label>
+                <select id="continuo">
+                    <option value="roncus">Roncus</option>
+                    <option value="estridor">Estridor</option>
+                    <option value="sibilancia">Sibilancia</option>
+                </select>
+            </div>
+
+            <div id="opciones-discontinuo" style="display: none;">
+                <label for="discontinuo">Selecciona el ruido discontinuo:</label>
+                <select id="discontinuo">
+                    <option value="crepito_fino">Crepito fino</option>
+                    <option value="crepito_grueso">Crepito grueso</option>
+                    <option value="frote_pleural">Frote pleural</option>
+                </select>
+            </div>
         </div>
 
         <div id="resultado"></div>
-        <audio id="audio-player" controls></audio>
+        <audio id="audio-player" controls>
+            Tu navegador no soporta la reproducción de audio.
+        </audio>
     </div>
     <script src="script.js"></script>
 </body>
