@@ -54,9 +54,9 @@ document.getElementById('continuo').addEventListener('change', function() {
                 break;
         }
 
-        console.log(`Reproduciendo: audios/${audioFile}`);  // Depuración
+        console.log(`Reproduciendo: ./audios/${audioFile}`);  // Depuración
         resultado.textContent = descripcion;
-        audioPlayer.src = `audios/${audioFile}`;
+        audioPlayer.src = `./audios/${audioFile}`;
         audioPlayer.play();
         siguienteBtn.style.display = 'block';
     } else {
@@ -91,9 +91,9 @@ document.getElementById('discontinuo').addEventListener('change', function() {
                 break;
         }
 
-        console.log(`Reproduciendo: audios/${audioFile}`);  // Depuración
+        console.log(`Reproduciendo: ./audios/${audioFile}`);  // Depuración
         resultado.textContent = descripcion;
-        audioPlayer.src = `audios/${audioFile}`;
+        audioPlayer.src = `./audios/${audioFile}`;
         audioPlayer.play();
         siguienteBtn.style.display = 'block';
     } else {
