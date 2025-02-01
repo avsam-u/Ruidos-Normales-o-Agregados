@@ -49,7 +49,7 @@ document.getElementById('continuo').addEventListener('change', function() {
     }
 
     resultado.textContent = descripcion;
-    audioPlayer.src = `audios/${audioFile}`;
+    audioPlayer.src = `audios/${audioFile}`;  // Ruta ajustada
     audioPlayer.play();
 });
 
@@ -77,6 +77,6 @@ document.getElementById('discontinuo').addEventListener('change', function() {
     }
 
     resultado.textContent = descripcion;
-    audioPlayer.src = `audios/${audioFile}`;
+    audioPlayer.src = `audios/${audioFile}`;  // Ruta ajustada
     audioPlayer.play();
 });
