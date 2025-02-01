@@ -11,6 +11,7 @@
     <div id="app">
         <label for="tipo-ruido">Selecciona el tipo de ruido:</label>
         <select id="tipo-ruido">
+            <option value="">-- Selecciona --</option>
             <option value="normal">Normal</option>
             <option value="agregado">Agregado</option>
         </select>
@@ -18,6 +19,7 @@
         <div id="opciones-agregado" style="display: none;">
             <label for="tipo-agregado">Tipo de ruido agregado:</label>
             <select id="tipo-agregado">
+                <option value="">-- Selecciona --</option>
                 <option value="continuo">Continuo</option>
                 <option value="discontinuo">Discontinuo</option>
             </select>
@@ -25,6 +27,7 @@
             <div id="opciones-continuo" style="display: none;">
                 <label for="continuo">Selecciona el ruido continuo:</label>
                 <select id="continuo">
+                    <option value="">-- Selecciona --</option>
                     <option value="roncus">Roncus</option>
                     <option value="estridor">Estridor</option>
                     <option value="sibilancia">Sibilancia</option>
@@ -34,6 +37,7 @@
             <div id="opciones-discontinuo" style="display: none;">
                 <label for="discontinuo">Selecciona el ruido discontinuo:</label>
                 <select id="discontinuo">
+                    <option value="">-- Selecciona --</option>
                     <option value="crepito_fino">Crepito fino</option>
                     <option value="crepito_grueso">Crepito grueso</option>
                     <option value="frote_pleural">Frote pleural</option>
@@ -45,6 +49,8 @@
         <audio id="audio-player" controls>
             Tu navegador no soporta la reproducción de audio.
         </audio>
+
+        <button id="siguiente" style="display: none;">Siguiente</button>
     </div>
     <script src="script.js"></script>
 </body>
