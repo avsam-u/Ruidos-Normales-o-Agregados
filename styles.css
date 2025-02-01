@@ -40,7 +40,14 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
-.resultado {
+.resultado-fase {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.resultado-final {
     margin-top: 1.5rem;
     font-size: 1.1rem;
     font-weight: 600;
