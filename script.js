@@ -116,6 +116,9 @@ function verificarRespuesta() {
         ruidoCorrecto: ruidoCorrecto.value
     };
 
+    console.log("Respuestas del usuario:", respuestas);
+    console.log("Ruido actual:", ruidoActual);
+
     const correcto = (
         respuestas.tipo === ruidoActual.tipo &&
         respuestas.agregado === ruidoActual.agregado &&
@@ -157,7 +160,7 @@ function llenarOpcionesRuidos() {
     ruidoCorrecto.innerHTML = '<option value="">-- Selecciona --</option>';
     ruidos.forEach(ruido => {
         const option = document.createElement('option');
-        option.value = ruido.nombre;
+        option.value = ruido.nombre; // Asegúrate de que el valor sea el nombre del ruido
         option.textContent = ruido.nombre;
         ruidoCorrecto.appendChild(option);
     });
