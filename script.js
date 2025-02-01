@@ -1,108 +1,130 @@
-document.getElementById('tipo-ruido').addEventListener('change', function() {
-    const tipoRuido = this.value;
-    const opcionesAgregado = document.getElementById('opciones-agregado');
-
-    if (tipoRuido === 'agregado') {
-        opcionesAgregado.style.display = 'block';
-    } else {
-        opcionesAgregado.style.display = 'none';
-        document.getElementById('resultado').textContent = '';
-        document.getElementById('audio-player').src = '';
-        document.getElementById('siguiente').style.display = 'none';
+// Datos de los ruidos
+const ruidos = [
+    {
+        nombre: "Roncus",
+        tipo: "agregado",
+        agregado: "continuo",
+        fase: "inspiratoria",
+        ubicacion: "central",
+        archivo: "roncus.mp3"
+    },
+    {
+        nombre: "Estridor",
+        tipo: "agregado",
+        agregado: "continuo",
+        fase: "espiratoria",
+        ubicacion: "central",
+        archivo: "estridor.mp3"
+    },
+    {
+        nombre: "Sibilancia",
+        tipo: "agregado",
+        agregado: "continuo",
+        fase: "espiratoria",
+        ubicacion: "central",
+        archivo: "sibilancia.mp3"
+    },
+    {
+        nombre: "Crepito fino",
+        tipo: "agregado",
+        agregado: "discontinuo",
+        fase: "inspiratoria",
+        ubicacion: "periferica",
+        archivo: "crepito_fino.mp3"
+    },
+    {
+        nombre: "Crepito grueso",
+        tipo: "agregado",
+        agregado: "discontinuo",
+        fase: "espiratoria",
+        ubicacion: "central",
+        archivo: "crepito_grueso.mp3"
+    },
+    {
+        nombre: "Frote pleural",
+        tipo: "agregado",
+        agregado: "discontinuo",
+        fase: "ambas",
+        ubicacion: "periferica",
+        archivo: "frote_pleural.mp3"
     }
-});
+];
 
-document.getElementById('tipo-agregado').addEventListener('change', function() {
-    const tipoAgregado = this.value;
-    const opcionesContinuo = document.getElementById('opciones-continuo');
-    const opcionesDiscontinuo = document.getElementById('opciones-discontinuo');
+let indiceActual = 0;
+let ruidoActual = ruidos[indiceActual];
 
-    if (tipoAgregado === 'continuo') {
-        opcionesContinuo.style.display = 'block';
-        opcionesDiscontinuo.style.display = 'none';
-    } else if (tipoAgregado === 'discontinuo') {
-        opcionesContinuo.style.display = 'none';
-        opcionesDiscontinuo.style.display = 'block';
+// Elementos del DOM
+const audioPlayer = document.getElementById('audio-player');
+const tipoRuido = document.getElementById('tipo-ruido');
+const tipoAgregado = document.getElementById('tipo-agregado');
+const fase = document.getElementById('fase');
+const ubicacion = document.getElementById('ubicacion');
+const resultado = document.getElementById('resultado');
+const btnRevisar = document.getElementById('revisar');
+const btnAnterior = document.getElementById('anterior');
+const btnSiguiente = document.getElementById('siguiente');
+const btnAleatorio = document.getElementById('aleatorio');
+
+// Cargar el ruido actual
+function cargarRuido() {
+    audioPlayer.src = `./audios/${ruidoActual.archivo}`;
+    audioPlayer.play();
+    tipoRuido.value = "";
+    tipoAgregado.value = "";
+    fase.value = "";
+    ubicacion.value = "";
+    resultado.textContent = "";
+}
+
+// Verificar la respuesta
+function verificarRespuesta() {
+    const respuestas = {
+        tipo: tipoRuido.value,
+        agregado: tipoAgregado.value,
+        fase: fase.value,
+        ubicacion: ubicacion.value
+    };
+
+    const correcto = (
+        respuestas.tipo === ruidoActual.tipo &&
+        respuestas.agregado === ruidoActual.agregado &&
+        respuestas.fase === ruidoActual.fase &&
+        respuestas.ubicacion === ruidoActual.ubicacion
+    );
+
+    if (correcto) {
+        resultado.textContent = "¡Correcto!";
+        resultado.style.color = "#27ae60";
     } else {
-        opcionesContinuo.style.display = 'none';
-        opcionesDiscontinuo.style.display = 'none';
+        resultado.textContent = `Incorrecto. El ruido es: ${ruidoActual.nombre}.`;
+        resultado.style.color = "#e74c3c";
     }
-});
+}
 
-document.getElementById('continuo').addEventListener('change', function() {
-    const ruido = this.value;
-    const resultado = document.getElementById('resultado');
-    const audioPlayer = document.getElementById('audio-player');
-    const siguienteBtn = document.getElementById('siguiente');
+// Navegación
+function avanzar() {
+    indiceActual = (indiceActual + 1) % ruidos.length;
+    ruidoActual = ruidos[indiceActual];
+    cargarRuido();
+}
 
-    if (ruido) {
-        let descripcion = '';
-        let audioFile = '';
+function retroceder() {
+    indiceActual = (indiceActual - 1 + ruidos.length) % ruidos.length;
+    ruidoActual = ruidos[indiceActual];
+    cargarRuido();
+}
 
-        switch (ruido) {
-            case 'roncus':
-                descripcion = 'Roncus: Fase inspiratoria, al final de la fase.';
-                audioFile = 'roncus.mp3';
-                break;
-            case 'estridor':
-                descripcion = 'Estridor: Se escucha sin fonendo, fase espiratoria.';
-                audioFile = 'estridor.mp3';
-                break;
-            case 'sibilancia':
-                descripcion = 'Sibilancia: Fase espiratoria, vía central, con la tos aumenta.';
-                audioFile = 'sibilancia.mp3';
-                break;
-        }
+function aleatorio() {
+    indiceActual = Math.floor(Math.random() * ruidos.length);
+    ruidoActual = ruidos[indiceActual];
+    cargarRuido();
+}
 
-        console.log(`Reproduciendo: ./audios/${audioFile}`);  // Depuración
-        resultado.textContent = descripcion;
-        audioPlayer.src = `./audios/${audioFile}`;
-        audioPlayer.play();
-        siguienteBtn.style.display = 'block';
-    } else {
-        resultado.textContent = '';
-        audioPlayer.src = '';
-        siguienteBtn.style.display = 'none';
-    }
-});
+// Eventos
+btnRevisar.addEventListener('click', verificarRespuesta);
+btnSiguiente.addEventListener('click', avanzar);
+btnAnterior.addEventListener('click', retroceder);
+btnAleatorio.addEventListener('click', aleatorio);
 
-document.getElementById('discontinuo').addEventListener('change', function() {
-    const ruido = this.value;
-    const resultado = document.getElementById('resultado');
-    const audioPlayer = document.getElementById('audio-player');
-    const siguienteBtn = document.getElementById('siguiente');
-
-    if (ruido) {
-        let descripcion = '';
-        let audioFile = '';
-
-        switch (ruido) {
-            case 'crepito_fino':
-                descripcion = 'Crepito fino: Fase inspiratoria, al final de la fase.';
-                audioFile = 'crepito_fino.mp3';
-                break;
-            case 'crepito_grueso':
-                descripcion = 'Crepito grueso: Fase espiratoria, vía central, con la tos se pierde.';
-                audioFile = 'crepito_grueso.mp3';
-                break;
-            case 'frote_pleural':
-                descripcion = 'Frote pleural: Presente en ambas fases, vía periférica, no desaparece con la tos.';
-                audioFile = 'frote_pleural.mp3';
-                break;
-        }
-
-        console.log(`Reproduciendo: ./audios/${audioFile}`);  // Depuración
-        resultado.textContent = descripcion;
-        audioPlayer.src = `./audios/${audioFile}`;
-        audioPlayer.play();
-        siguienteBtn.style.display = 'block';
-    } else {
-        resultado.textContent = '';
-        audioPlayer.src = '';
-        siguienteBtn.style.display = 'none';
-    }
-});
-
-document.getElementById('siguiente').addEventListener('click', function() {
-    alert('Aquí puedes avanzar al siguiente paso o cuestionario.');
-});
+// Cargar el primer ruido al iniciar
+cargarRuido();
