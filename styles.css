@@ -74,3 +74,7 @@ h1 {
 .btn-revisar:hover {
     background-color: #219653;
 }
+
+.fase {
+    display: none;
+}
