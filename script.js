@@ -107,12 +107,11 @@ function verificarFase() {
             mensaje = correcto ? "" : `Incorrecto. El ruido es ${ruidoActual.agregado}.`;
             break;
         case 3:
-            // Aquí está la modificación para la fase de la tos
             correcto = desapareceTos.value === ruidoActual.desapareceTos;
             if (correcto) {
-                mensaje = ruidoActual.desapareceTos === "si" ? "Desapareció." : "No desapareció.";
+                mensaje = ruidoActual.desapareceTos === "si" ? "Desapareció." : "No se modificó.";
             } else {
-                mensaje = ruidoActual.desapareceTos === "si" ? "Desapareció." : "No desapareció.";
+                mensaje = ruidoActual.desapareceTos === "si" ? "Desapareció." : "No se modificó.";
             }
             break;
         case 4:
@@ -121,7 +120,12 @@ function verificarFase() {
             break;
         case 5:
             correcto = ruidoCorrecto.value === ruidoActual.nombre;
-            mensaje = correcto ? "¡Correcto!" : `Incorrecto. El ruido es ${ruidoActual.nombre}.`;
+            if (correcto) {
+                mensaje = "¡Correcto!";
+                mostrarResumen(); // Mostrar el resumen
+            } else {
+                mensaje = `Incorrecto. El ruido es ${ruidoActual.nombre}.`;
+            }
             break;
     }
 
