@@ -54,6 +54,7 @@ document.getElementById('continuo').addEventListener('change', function() {
                 break;
         }
 
+        console.log(`Reproduciendo: audios/${audioFile}`);  // Depuración
         resultado.textContent = descripcion;
         audioPlayer.src = `audios/${audioFile}`;
         audioPlayer.play();
@@ -90,6 +91,7 @@ document.getElementById('discontinuo').addEventListener('change', function() {
                 break;
         }
 
+        console.log(`Reproduciendo: audios/${audioFile}`);  // Depuración
         resultado.textContent = descripcion;
         audioPlayer.src = `audios/${audioFile}`;
         audioPlayer.play();
