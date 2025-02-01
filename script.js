@@ -8,6 +8,7 @@ document.getElementById('tipo-ruido').addEventListener('change', function() {
         opcionesAgregado.style.display = 'none';
         document.getElementById('resultado').textContent = '';
         document.getElementById('audio-player').src = '';
+        document.getElementById('siguiente').style.display = 'none';
     }
 });
 
@@ -22,6 +23,9 @@ document.getElementById('tipo-agregado').addEventListener('change', function() {
     } else if (tipoAgregado === 'discontinuo') {
         opcionesContinuo.style.display = 'none';
         opcionesDiscontinuo.style.display = 'block';
+    } else {
+        opcionesContinuo.style.display = 'none';
+        opcionesDiscontinuo.style.display = 'none';
     }
 });
 
@@ -29,54 +33,74 @@ document.getElementById('continuo').addEventListener('change', function() {
     const ruido = this.value;
     const resultado = document.getElementById('resultado');
     const audioPlayer = document.getElementById('audio-player');
+    const siguienteBtn = document.getElementById('siguiente');
 
-    let descripcion = '';
-    let audioFile = '';
+    if (ruido) {
+        let descripcion = '';
+        let audioFile = '';
 
-    switch (ruido) {
-        case 'roncus':
-            descripcion = 'Roncus: Fase inspiratoria, al final de la fase.';
-            audioFile = 'roncus.mp3';
-            break;
-        case 'estridor':
-            descripcion = 'Estridor: Se escucha sin fonendo, fase espiratoria.';
-            audioFile = 'estridor.mp3';
-            break;
-        case 'sibilancia':
-            descripcion = 'Sibilancia: Fase espiratoria, vía central, con la tos aumenta.';
-            audioFile = 'sibilancia.mp3';
-            break;
+        switch (ruido) {
+            case 'roncus':
+                descripcion = 'Roncus: Fase inspiratoria, al final de la fase.';
+                audioFile = 'roncus.mp3';
+                break;
+            case 'estridor':
+                descripcion = 'Estridor: Se escucha sin fonendo, fase espiratoria.';
+                audioFile = 'estridor.mp3';
+                break;
+            case 'sibilancia':
+                descripcion = 'Sibilancia: Fase espiratoria, vía central, con la tos aumenta.';
+                audioFile = 'sibilancia.mp3';
+                break;
+        }
+
+        resultado.textContent = descripcion;
+        audioPlayer.src = `audios/${audioFile}`;
+        audioPlayer.play();
+        siguienteBtn.style.display = 'block';
+    } else {
+        resultado.textContent = '';
+        audioPlayer.src = '';
+        siguienteBtn.style.display = 'none';
     }
-
-    resultado.textContent = descripcion;
-    audioPlayer.src = `audios/${audioFile}`;  // Ruta ajustada
-    audioPlayer.play();
 });
 
 document.getElementById('discontinuo').addEventListener('change', function() {
     const ruido = this.value;
     const resultado = document.getElementById('resultado');
     const audioPlayer = document.getElementById('audio-player');
+    const siguienteBtn = document.getElementById('siguiente');
 
-    let descripcion = '';
-    let audioFile = '';
+    if (ruido) {
+        let descripcion = '';
+        let audioFile = '';
 
-    switch (ruido) {
-        case 'crepito_fino':
-            descripcion = 'Crepito fino: Fase inspiratoria, al final de la fase.';
-            audioFile = 'crepito_fino.mp3';
-            break;
-        case 'crepito_grueso':
-            descripcion = 'Crepito grueso: Fase espiratoria, vía central, con la tos se pierde.';
-            audioFile = 'crepito_grueso.mp3';
-            break;
-        case 'frote_pleural':
-            descripcion = 'Frote pleural: Presente en ambas fases, vía periférica, no desaparece con la tos.';
-            audioFile = 'frote_pleural.mp3';
-            break;
+        switch (ruido) {
+            case 'crepito_fino':
+                descripcion = 'Crepito fino: Fase inspiratoria, al final de la fase.';
+                audioFile = 'crepito_fino.mp3';
+                break;
+            case 'crepito_grueso':
+                descripcion = 'Crepito grueso: Fase espiratoria, vía central, con la tos se pierde.';
+                audioFile = 'crepito_grueso.mp3';
+                break;
+            case 'frote_pleural':
+                descripcion = 'Frote pleural: Presente en ambas fases, vía periférica, no desaparece con la tos.';
+                audioFile = 'frote_pleural.mp3';
+                break;
+        }
+
+        resultado.textContent = descripcion;
+        audioPlayer.src = `audios/${audioFile}`;
+        audioPlayer.play();
+        siguienteBtn.style.display = 'block';
+    } else {
+        resultado.textContent = '';
+        audioPlayer.src = '';
+        siguienteBtn.style.display = 'none';
     }
+});
 
-    resultado.textContent = descripcion;
-    audioPlayer.src = `audios/${audioFile}`;  // Ruta ajustada
-    audioPlayer.play();
+document.getElementById('siguiente').addEventListener('click', function() {
+    alert('Aquí puedes avanzar al siguiente paso o cuestionario.');
 });
